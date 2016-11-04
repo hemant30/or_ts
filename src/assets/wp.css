@@ -1,0 +1,199 @@
+.view-home .home-content .banner {
+    background: url("Images/Origin-Home Page.jpg") no-repeat;
+    height: 400px;
+    background-size: 100%;
+    z-index: 10;
+    position: relative;
+}
+
+.view-home .home-content .activity-container {
+    background: #fff;
+    padding: 15px 0;
+    width: 100%;
+}
+
+.view-home .home-content .activity {
+    background-color: #fff;
+    overflow: hidden;
+    padding: 15px;
+    padding-left: 0;
+    width: 100%;
+    max-width: 1600px;
+    min-width: 780px;
+}
+
+.view-home .home-content .activity-container .activity .setup {
+    background: url("Images/icon-dashboard-setup.png") 25px 0px no-repeat transparent;
+    width: 25%;
+    vertical-align: top;
+}
+
+.view-home .home-content .activity-container .activity .import {
+    background: url("Images/icon-dashboard-import.png") 25px 0px no-repeat transparent;
+    width: 25%;
+    vertical-align: top;
+}
+
+.view-home .home-content .activity-container .activity .create {
+    background: url("Images/icon-dashboard-create.png") 25px 0px no-repeat transparent;
+    width: 25%;
+    vertical-align: top;
+}
+
+.view-home .home-content .activity-container .activity .review {
+    background: url("Images/icon-dashboard-review.png") 25px 0px no-repeat transparent;
+    width: 25%;
+    vertical-align: top;
+}
+
+.view-home .home-content .activity tr td {
+    border-left: 1px solid #e5e5e5;
+    min-height: 80px;
+    padding: 10px 15px 0 15px;
+    position: relative;
+}
+
+.view-home .home-content .activity tr td:first-child {
+    border-left: none;
+}
+
+.view-home .home-content .activity h2 {
+    font-size: 27px;
+    padding-left: 70px;
+    color: 0;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.view-home .home-content .activity h2 {
+    cursor: pointer;
+    font-family: 'KnowledgeMediumRegular', Arial, sans-serif;
+}
+
+.view-home .home-content .activity p {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 70px;
+    color: #252525;
+    font-family: Arial, sans-serif;
+}
+
+.originContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.originContainer .originMainView {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+.bento-flex-grid-tree .wj-cell.wj-group {
+    padding-left: 13px;
+}
+
+.origin-batch-labels {
+    width: 93%;
+    display: block;
+    font-size: 0.8em;
+    line-height: 2.0em;
+    letter-spacing: 3px;
+    height: 27px;
+    margin-top: -5px;
+}
+
+.view-workpapers {
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.view-workpapers ul.list-group li.active {
+    background-color: #ebf7fa;
+}
+
+.view-workpapers .wp-aw-main-container {
+    position: absolute;
+    bottom: 0;
+    top: 318px;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.view-workpapers .wp-aw-main-container .splitter-group-wrapper {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    bottom: 0;
+}
+
+.view-workpapers .wp-aw-main-container .wp-notes-info-popup {
+    width: 350px;
+    height: 305px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    position: absolute;
+    right: 20px;
+    z-index: 100;
+    margin-top: 74px;
+}
+
+.view-workpapers .wp-aw-main-container .wp-activeworkpaper-search-icon {
+    position: absolute;
+    padding: 32px 12px;
+    pointer-events: none;
+    color: #bbbbbb;
+}
+
+.view-workpapers.wp-aw-no-recent-card .wp-aw-main-container {
+    top: 0;
+}
+
+.view-workpapers.wp-aw-no-recent-card .bento-masthead {
+    display: none;
+}
+
+.view-workpapers .show-whitespaces {
+    white-space: pre;
+}
+
+.view-workpapers select option {
+    white-space: pre;
+}
+
+div#divleftmenu {
+    width: 100%;
+    padding-right: 10px;
+    vertical-align: top;
+}
+
+div#divleftmenu>div {
+    padding: 12px;
+    height: 60px;
+}
+
+.bento-tabset ul li span {
+    display: inline-block !important;
+}
+
+table .selected {
+    background-color: #d4ebf4 !important;
+}
+
+table td>.form-control {
+    margin: 0;
+}
+
+.error-msg {
+    color: red;
+}

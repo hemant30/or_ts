@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <title>Workpapers</title>
+    <link rel="stylesheet" href="./css/wijmo.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/platform-theme.min.css" />
+    <link rel="stylesheet" href="./css/bento-platform-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/wp.css">
+</head>
+
+<body>
+    <div bento-off-canvas-menu="" class="not-responsive" type="push" data-bento-busy-loader="isLoaderBusy">
+        <div bento-off-canvas-menu-topbar="">
+            <!-- Logo -->
+            <div class="pull-left" style="margin-left: 20px; margin-top: 8px;">
+                <a class="topbar-item logo" ng-href="/home" href="/home">
+                    <h1 style="margin-top: -20px; font-weight: bold" class="sub-app">ONESOURCE ™</h1>
+                </a>
+                <h2 style="margin-top: -35px; font-size: 12pt; font-weight: bold; color: #fff" class="ng-binding">Workpaper Manager</h2>
+            </div>
+        </div>
+        <!-- End of bento-off-canvas-menu-topbar -->
+        <div bento-off-canvas-menu-aside="">
+            <h2><i class="glyphicons random"></i>Navigation</h2>
+            <ul>
+                <!-- Navigate to the home route. -->
+                <li><a ui-sref="wp.home">Home</a></li>
+                <!-- Navigate to the feature1 route. -->
+                <!--
+                                <li><a ui-sref="feature1">Feature 1 Route</a></li>
+
+                                <li><a ui-sref="feature2">Feature 2 Route</a></li>
+
+                                <li><a ui-sref="feature3">Feature 3 Route</a></li>
+                -->
+            </ul>
+        </div>
+        <!-- End of bento-off-canvas-menu-aside -->
+        <div bento-off-canvas-menu-content="" style="padding: 0px;">
+            <!-- Declare the Angular viewport. This is where the selected route is displayed. -->
+            <div class="view-animate-container">
+                <div ui-view="" class="view-animate">
+                    <!--<div data-ui-view="subNav" class="subNav"></div>
+                    <div data-ui-view="mainView" class="mainView"></div>-->
+                </div>
+            </div>
+        </div>
+        <!-- bento-off-canvas-menu-content -->
+    </div>
+    <!--jquery-->
+    <script src="./js/jquery.min.js"></script>
+    <!--jquery-->
+    <!--angular-->
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/angular-translate.min.js"></script>
+    <script src="./js/angular-animate.min.js"></script>
+    <script src="./js/angular-sanitize.min.js"></script>
+    <script src="./js/angular-touch.min.js"></script>
+    <script src="./js/fastclick.js"></script>
+    <script src="./js/angular-ui-router.min.js"></script>
+    <script src="./js/fef.min.js"></script>
+    <script src="./js/ui-bootstrap-tpls.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/bento-modern.min.js"></script>
+    <!--angular-->
+    <!--bento-->
+    <!--bento-->
+    <!--wijmo-->
+    <!--<script src="./js/wijmo.min.js"></script>
+    <script src="./js/wijmo.grid.min.js"></script>
+    <script src="./js/wijmo.grid.detail.min.js"></script>
+    <script src="./js/wijmo.grid.grouppanel.min.js"></script>
+    <script src="./js/wijmo.input.min.js"></script>
+    <script src="./js/wijmo.grid.filter.min.js"></script>
+    <script src="./js/wijmo.angular.js"></script>-->
+    <!--wijmo-->
+    <!--app-->
+    <script src="./wp.js"></script>
+    <!--app-->
+    <script>
+        window.onload = function() {
+            var xx = Origin.Main.module;
+            // var xx = document.getElementById('vowl');
+            // xx.attributes['vowldata'] = marcos;
+            angular.bootstrap(document, ['wp'], {
+                strictDi: true
+            });
+        }
+    </script>
+</body>
+
+</html>
