@@ -1,18 +1,18 @@
+/// <reference path="./workpaper.component.tpl.ts" />
+
 namespace Origin.Component {
     export class WorkpaperController {
         authorize: any;
         customattributes: any;
-        
+
         constructor() {
-            console.log(this.authorize);
         }
 
         $onChanges = (changes: any) => {
-            console.log(changes);
          }
     }
 
-    export class Workpaper {
+    export class Workpaper implements ng.IComponentOptions {
         bindings: any;
         controller: any;
         template: string;
@@ -23,7 +23,7 @@ namespace Origin.Component {
                 customattributes: '<'
             };
             this.controller = WorkpaperController;
-            this.template = Origin.Workpaper.wptemplate;
+            this.template = Origin.Template.WorkpaperTemplate;
         }
     }
 }

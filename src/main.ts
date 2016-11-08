@@ -6,7 +6,9 @@
 /// <reference path="./config/constants.ts" />
 /// <reference path="./config/env.config.ts" />
 /// <reference path="./core/custom_interceptor.ts" />
-
+/// <reference path="./core/permission.directive.ts" />
+/// <reference path="./Workpaper/workpaper.component.ts" />
+/// <reference path="./Workpaper/folder.component.ts" />
 
 namespace Origin {
     export class Main {
@@ -44,6 +46,7 @@ namespace Origin {
                 .component('home', new Origin.Home.Home())
                 .component('nav', new Origin.Nav.Navigation())
                 .component('workpaper', new Origin.Component.Workpaper())
+                .component('folder', new Origin.Component.Folder())
                 .service('AlertService', Origin.Core.AlertService)
                 .service('OriginAnalytics', Origin.Core.OriginAnalytics)
                 .service('AppService', Origin.Core.AppService)

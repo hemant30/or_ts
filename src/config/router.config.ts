@@ -22,6 +22,7 @@ namespace Origin.Config {
             this.$stateProvider.state('wp', this.defaultState());
             this.$stateProvider.state('wp.home', this.wphomeState());
             this.$stateProvider.state('wp.workpapers', this.workpaperState());
+            this.$stateProvider.state('wp.plugin', this.supportState())
             this.$urlRouterProvider.otherwise('/wp')
             // if (typeof LoneStar !== 'object') {
             //     this.env.isLoneStarRunning = false;
@@ -134,6 +135,14 @@ namespace Origin.Config {
                                 return x;
                             }]
                         }
+                    },
+                    'folderview@wp.workpapers': {
+                        template: '<folder test="$resolve.test"></folder>',
+                        resolve: {
+                            test: function () { 
+                                return true;
+                            }
+                        }
                     }
                 }
             }
@@ -145,6 +154,20 @@ namespace Origin.Config {
                 views: {
 
                 }
+            }
+        }
+
+        private supportState(): ng.ui.IState { 
+            return {
+                url: '/support',
+                views: {
+                    '': {
+                        template: '<folder></folder>'
+                    },
+                    mainView: {
+                        template : '<folder></folder>'
+                    }
+                }                
             }
         }
     }

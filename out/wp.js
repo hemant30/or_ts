@@ -261,6 +261,14 @@ var Origin;
                                             return x;
                                         }]
                                 }
+                            },
+                            'folderview@wp.workpapers': {
+                                template: '<folder test="$resolve.test"></folder>',
+                                resolve: {
+                                    test: function () {
+                                        return true;
+                                    }
+                                }
                             }
                         }
                     };
@@ -271,6 +279,7 @@ var Origin;
                 this.$stateProvider.state('wp', this.defaultState());
                 this.$stateProvider.state('wp.home', this.wphomeState());
                 this.$stateProvider.state('wp.workpapers', this.workpaperState());
+                this.$stateProvider.state('wp.plugin', this.supportState());
                 this.$urlRouterProvider.otherwise('/wp');
                 // if (typeof LoneStar !== 'object') {
                 //     this.env.isLoneStarRunning = false;
@@ -363,6 +372,19 @@ var Origin;
             RouteConfig.prototype.batchesState = function () {
                 return {
                     views: {}
+                };
+            };
+            RouteConfig.prototype.supportState = function () {
+                return {
+                    url: '/support',
+                    views: {
+                        '': {
+                            template: '<folder></folder>'
+                        },
+                        mainView: {
+                            template: '<folder></folder>'
+                        }
+                    }
                 };
             };
             return RouteConfig;
@@ -1307,6 +1329,72 @@ var Origin;
         Nav.Navigation = Navigation;
     })(Nav = Origin.Nav || (Origin.Nav = {}));
 })(Origin || (Origin = {}));
+var Origin;
+(function (Origin) {
+    var Template;
+    (function (Template) {
+        Template.WorkpaperTemplate = "\n        this is workpaper\n\n        <div class=\"splitter-group-wrapper\">\n            <div data-bento-splitter-group data-left-width=\"18%\" data-is-left-collapsed=\"false\" data-resizable=\"true\"   data-event-tracking=\"\" on-resize=\"trackEvent(eventName)\">\n                <aside data-bento-splitter-group-left style=\"overflow: hidden\">\n                    <div id=\"divleftmenu\" style=\"width: 100%; padding-right: 10px; vertical-align: top\" class=\"noselect\">\n                        <div ui-view=\"folderview\" style=\"padding-right: 0px; position: absolute; top: 5px; left: 0px; right: 0px; height: 95%\"></div>\n                    </div>\n                </aside>\n\n                <section grid-container data-bento-splitter-group-main>\n                    <div id=\"divrightcontent\" style=\"\" class=\"justified noselect test-append-to-parent\">\n                        <div bento-nav-toolbar class=\"navbar navbar-default bento-toolbar\" more-button-label=\"More\" aria-controls=\"client-table-1\">\n                            <ul class=\"nav navbar-nav\">\n                                <li>\n                                    <a class=\"btn btn-link\" style=\"cursor: default; font-style: normal;\">{{wijmo.selectedUsersArray.length}}  <span data-translate=\"Selected\"></span></a>\n                                </li>\n                                <li has-permission=\"CreateAndUploadNewWorkpapers\">\n                                    <a ng-click=\"actions.add()\">\n                                        <i class=\"bento-icon-add\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Add\" analytics-label=\"Add Workpaper\"></i>\n                                        <span data-translate=\"WorkpaperAdd\"></span>\n                                    </a>\n                                </li>\n                                <li>\n                                    <a ng-click=\"actions.addattachments()\">\n                                        <i class=\"bento-icon-add\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Add\" analytics-label=\"Add Attachment\"></i>\n                                        <span data-translate=\"AddAttachment\"></span>\n                                    </a>\n                                </li>\n                                <li ng-class=\"{'disabled':isGroupDisabled()}\">\n                                    <a ng-click=\"actions.group()\" id=\"btnGroup\" ng-disabled=\"isGroupDisabled()\">\n                                        <i class=\"bento-icon-folder-plus\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Move to folder\"\n                                            analytics-label=\"Move to folder\"></i>\n                                        <span data-translate=\"FolderAddTo\"></span>\n                                    </a>\n                                </li>\n                                <li has-permission=\"DeleteWorkpapers\" ng-class=\"{'disabled':wijmo.selectedUsersArray.length <= 0}\">\n                                    <a ng-click=\"actions.delete()\" id=\"btnDelete\" ng-disabled=\"wijmo.selectedUsersArray.length <= 0\">\n                                        <i class=\"bento-icon-remove\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Delete\" analytics-label=\"Delete\"></i>\n                                        <span data-translate=\"Delete\"></span>\n                                    </a>\n                                </li>\n                            </ul>\n                            <ul class=\"nav navbar-right\" role=\"group\" style=\"\">\n                                <li class=\"\" style=\"\">\n                                    <button class=\"btn btn-default btn-icon btn-toggle\" ng-class=\"{active:wijmo.showfilter}\" ng-click=\"wijmo.toggleFilter()\"\n                                        data-tooltip-placement=\"bottom\" data-uib-tooltip=\"{{'ShowHideFilters' | translate}}\"\n                                        data-tooltip-append-to-body=\"true\">\n                                        <i class=\"bento-icon-filter-az\"></i>\n                                    </button>\n                                </li>\n                                <li class=\"\" style=\"\">\n                                    <button class=\"btn btn-default btn-icon btn-toggle\" ng-class=\"{active:!wijmo.hideGroupPanel}\" ng-click=\"wijmo.toggleGroupPanel()\"\n                                        data-tooltip-placement=\"bottom\" data-uib-tooltip=\"{{'ShowHideGroupPanel' | translate}}\"\n                                        data-tooltip-append-to-body=\"true\">\n                                        <i class=\"bento-icon-tree\"></i>\n                                    </button>\n                                </li>\n                                <li class=\"dropdown\" role=\"group\" uib-dropdown ng-click=\"$event.stopPropagation()\" style=\"\" is-open=\"isWpCogOpen\">\n                                    <button class=\"btn btn-default btn-icon dropdown-toggle\" uib-dropdown-toggle data-tooltip-placement=\"bottom\" data-uib-tooltip=\"{{'ShowHideColumns' | translate}}\">\n                                        <i class=\"bento-icon-cog\"></i>\n                                        <i class=\"bento-icon-arrow-down2\"></i>\n                                    </button>\n                                    <ul class=\"dropdown-menu megamenu pull-right\">\n                                        <li ng-repeat=\"item in wijmo.columnDefinitions\" class=\"\">\n                                            <a ng-if=\"item.canHideColumn\" ng-click=\"wijmo.toggleVisibility($index)\">\n                                                <i ng-class=\"wijmo.columnDefinitions[$index]['visible'] == true ? 'bento-icon-checkbox-filled' : 'bento-icon-checkbox'\">\n\n                                        </i>&nbsp;{{item.header | translate}}\n                                            </a>\n                                        </li>\n                                    </ul>\n                                </li>\n                            </ul>\n                        </div>\n\n                    </div>\n                </section>\n            </div>\n        </div>\n    ";
+    })(Template = Origin.Template || (Origin.Template = {}));
+})(Origin || (Origin = {}));
+/// <reference path="./workpaper.component.tpl.ts" />
+var Origin;
+(function (Origin) {
+    var Component;
+    (function (Component) {
+        var WorkpaperController = (function () {
+            function WorkpaperController() {
+                this.$onChanges = function (changes) {
+                };
+            }
+            return WorkpaperController;
+        }());
+        Component.WorkpaperController = WorkpaperController;
+        var Workpaper = (function () {
+            function Workpaper() {
+                this.bindings = {
+                    authorize: '<',
+                    customattributes: '<'
+                };
+                this.controller = WorkpaperController;
+                this.template = Origin.Template.WorkpaperTemplate;
+            }
+            return Workpaper;
+        }());
+        Component.Workpaper = Workpaper;
+    })(Component = Origin.Component || (Origin.Component = {}));
+})(Origin || (Origin = {}));
+var Origin;
+(function (Origin) {
+    var Template;
+    (function (Template) {
+        Template.FolderTemplate = "\n            this is folder\n\n        ";
+    })(Template = Origin.Template || (Origin.Template = {}));
+})(Origin || (Origin = {}));
+/// <reference path="./folder.component.tpl.ts" />
+var Origin;
+(function (Origin) {
+    var Component;
+    (function (Component) {
+        var FolderController = (function () {
+            function FolderController() {
+                console.log('folder controller loaded');
+            }
+            return FolderController;
+        }());
+        Component.FolderController = FolderController;
+        var Folder = (function () {
+            function Folder() {
+                this.bindings = {
+                    test: '<'
+                };
+                this.controller = FolderController;
+                this.template = Origin.Template.FolderTemplate;
+            }
+            return Folder;
+        }());
+        Component.Folder = Folder;
+    })(Component = Origin.Component || (Origin.Component = {}));
+})(Origin || (Origin = {}));
 /// <reference path="./core/global.functions.ts" />
 /// <reference path="./app/app.component.ts" />
 /// <reference path="./home/home.component.ts" />
@@ -1315,6 +1403,9 @@ var Origin;
 /// <reference path="./config/constants.ts" />
 /// <reference path="./config/env.config.ts" />
 /// <reference path="./core/custom_interceptor.ts" />
+/// <reference path="./core/permission.directive.ts" />
+/// <reference path="./Workpaper/workpaper.component.ts" />
+/// <reference path="./Workpaper/folder.component.ts" />
 var Origin;
 (function (Origin) {
     var Main = (function () {
@@ -1350,6 +1441,7 @@ var Origin;
                     .component('home', new Origin.Home.Home())
                     .component('nav', new Origin.Nav.Navigation())
                     .component('workpaper', new Origin.Component.Workpaper())
+                    .component('folder', new Origin.Component.Folder())
                     .service('AlertService', Origin.Core.AlertService)
                     .service('OriginAnalytics', Origin.Core.OriginAnalytics)
                     .service('AppService', Origin.Core.AppService)
@@ -1379,40 +1471,5 @@ var Origin;
     (function (Nav) {
         Nav.navtemplate = "\n        <div class=\"\">\n            <div bento-nav-toolbar class=\"navbar-navbar navbar-default bento-toolbar global-subnav\">\n                <ul class=\"nav navbar-nav\">\n                    <li ng-if=\"isCMButtonVisible && selectedSubClient\" style=\"padding-right: 17px; border-right: 1px solid #777\">\n                        <button type=\"button\" class=\"btn btn-icon btn-primary btn-md\" ng-click=\"showCMdialog()\" style=\"\n                                                                            padding: 16px 0px;\n                                                                            padding-left: 16px!Important;\n                                                                            padding-right: 16px!Important;\n                                                                            color: #3c3e45;\n                                                                            margin-left: 15px;\n                                                                            border: 1px solid #ccc;\n                                                                            border-radius: 7px;\n                                                                            background-color: #fff;\n                                                                            height: 30px;\n                                                                            line-height: 30px;\n                                                                            margin-top: 5px;\n                                                                        \">{{selectedSubClient.name | limitTo: 35 }}{{selectedSubClient.length > 35 ? '...' : ''}}</button>\n                    </li>\n                    <li ui-sref-active=\"active\">\n                        <a ui-sref=\"wp.home\" style=\"outline: 0\" data-translate=\"Home\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Navigation Menu\"\n                            analytics-label=\"Home\"></a>\n                    </li>\n                    <li has-permission=\"ActiveWorkpapersView\" ui-sref-active=\"active\" class=\"ng-hide\">\n                        <a ui-sref=\"wp.workpapers\" style=\"outline: 0\" data-translate=\"Workpapers\" analytics-on=\"click\" analytics-product=\"Workpapers\"\n                            analytics-category=\"Navigation Menu\" analytics-label=\"Active Workpapers\"></a>\n                    </li>\n                    <li ui-sref-active=\"active\" class=\"\">\n                        <a ui-sref=\"wp.attachments\" style=\"outline: 0\" data-translate=\"Attachments\" analytics-on=\"click\" analytics-product=\"Workpapers\"\n                            analytics-category=\"Navigation Menu\" analytics-label=\"Attachments\"></a>\n                    </li>\n                    <li has-permission=\"BatchesView\" ui-sref-active=\"active\" class=\"ng-hide\">\n                        <a ui-sref='wp.batches' style=\"outline: 0\" data-translate=\"Batches\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Navigation Menu\"\n                            analytics-label=\"Batches\"></a>\n                    </li>\n                    <li ui-sref-active=\"active\">\n                        <a ui-sref=\"wp.plugin\" style=\"outline: 0\" data-translate=\"Support\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Navigation Menu\"\n                            analytics-label=\"Support\"></a>\n                    </li>\n                    <li>\n                        <a ui-sref=\"wp.help\" style=\"outline: 0\" data-translate=\"Help\" analytics-on=\"click\" analytics-product=\"Workpapers\" analytics-category=\"Navigation Menu\"\n                            analytics-label=\"Help\"></a>\n                    </li>\n                </ul>\n                <ul class=\"nav navbar-nav navbar-right ng-hide\" has-permission='SuperAdministrator, Provisioning, AttributeManagementView'>\n                    <li class=\"dropdown\" uib-dropdown style=\"min-height: 40px;\" is-open=\"isNavCogOpen\">\n                        <a href=\"\" class=\"dropdown-toggle\" uib-dropdown-toggle><i class=\"bento-icon-cog\"></i></a>\n                        <ul class=\"dropdown-menu\">\n                            <li has-permission=\"AttributeManagementView\" ui-sref-active=\"active\" class=\"ng-hide\">\n                                <a ui-sref=\"wp.attributemanagement\" style=\"outline: 0\" data-translate=\"AttributeManagement\"></a>\n                            </li>\n                            <li has-permission='SuperAdministrator, Provisioning' ui-sref-active=\"active\" class=\"ng-hide\">\n                                <a ui-sref=\"wp.clients\" style=\"outline: 0\" data-translate=\"Clients\"></a>\n                            </li>\n                        </ul>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    ";
     })(Nav = Origin.Nav || (Origin.Nav = {}));
-})(Origin || (Origin = {}));
-var Origin;
-(function (Origin) {
-    var Workpaper;
-    (function (Workpaper) {
-        Workpaper.wptemplate = "\n        this is workpaper\n    ";
-    })(Workpaper = Origin.Workpaper || (Origin.Workpaper = {}));
-})(Origin || (Origin = {}));
-var Origin;
-(function (Origin) {
-    var Component;
-    (function (Component) {
-        var WorkpaperController = (function () {
-            function WorkpaperController() {
-                this.$onChanges = function (changes) {
-                    console.log(changes);
-                };
-                console.log(this.authorize);
-            }
-            return WorkpaperController;
-        }());
-        Component.WorkpaperController = WorkpaperController;
-        var Workpaper = (function () {
-            function Workpaper() {
-                this.bindings = {
-                    authorize: '<',
-                    customattributes: '<'
-                };
-                this.controller = WorkpaperController;
-                this.template = Origin.Workpaper.wptemplate;
-            }
-            return Workpaper;
-        }());
-        Component.Workpaper = Workpaper;
-    })(Component = Origin.Component || (Origin.Component = {}));
 })(Origin || (Origin = {}));
 //# sourceMappingURL=wp.js.map
