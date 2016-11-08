@@ -1,20 +1,31 @@
-namespace Origin.Nav { 
-    export class NavigationComponent { 
-        static $inject = ['$injector'];
+/// <reference path="../config/env.config.ts" />
+
+namespace Origin.Nav {
+    export class NavigationComponent {
+        static $inject = ['ENV', '$injector'];
 
         isCMButtonVisible: boolean;
         selectedSubClient;
-        constructor(private $injector) { 
+        $lonestarConfig;
 
+        constructor(private env: Origin.Config.IEnv, private $injector) {
+            if (this.env.isLoneStarRunning) {
+                this.$lonestarConfig = $injector.get('$lonestarConfig');
+                if (this.$lonestarConfig) {
+                    this.isCMButtonVisible = this.$lonestarConfig.shouldShowClientSelector;
+                    this.selectedSubClient = this.$lonestarConfig.selectedSubClient;
+                }
+            }
         }
 
-        showCMdialog() { 
-
+        showCMdialog() {
+            if (this.env.isLoneStarRunning && this.$lonestarConfig) {
+                this.$lonestarConfig.showClientSelector();
+            }
         }
-
     }
 
-    export class Navigation { 
+    export class Navigation {
         bindings: any;
         controller: any;
         template: string;

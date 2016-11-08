@@ -61,6 +61,9 @@ module.exports = {
                 from: './node_modules/angular/angular.min.js',
                 to: 'js'
             }, {
+                from: './node_modules/angular-cookies/angular-cookies.min.js',
+                to: 'js'
+            }, {
                 from: './node_modules/angular-animate/angular-animate.min.js',
                 to: 'js'
             }, {

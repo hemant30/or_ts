@@ -1,6 +1,15 @@
-namespace Origin.Workpaper {
-    export class WorkpaperComponent {
+namespace Origin.Component {
+    export class WorkpaperController {
+        authorize: any;
+        customattributes: any;
+        
+        constructor() {
+            console.log(this.authorize);
+        }
 
+        $onChanges = (changes: any) => {
+            console.log(changes);
+         }
     }
 
     export class Workpaper {
@@ -10,9 +19,10 @@ namespace Origin.Workpaper {
 
         constructor() {
             this.bindings = {
-
+                authorize: '<',
+                customattributes: '<'
             };
-            this.controller = WorkpaperComponent;
+            this.controller = WorkpaperController;
             this.template = Origin.Workpaper.wptemplate;
         }
     }

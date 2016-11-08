@@ -4,9 +4,16 @@
 namespace Origin.Home {
 
     export class HomeController {
+        static $inject = ['HttpService', 'UserDataService'];
+
+        constructor(private httpService: Origin.Core.IHttpService, private userDataService: Origin.Model.UserDataService) { }        
 
         downloadExcelAddin() {
+            this.httpService.DownloadFile('support/downloadaddin');
+        }
 
+        $onDestroy() { 
+            this.userDataService.LogOffCurrentUser();
         }
     }
 
