@@ -1,3 +1,5 @@
+/// <reference path="../main.ts" />
+
 namespace Origin.Core {
     export interface IFormDataService { 
         getTokenAndAccountId(): ng.IPromise<{}>;
@@ -72,4 +74,6 @@ namespace Origin.Core {
             return deferred.promise;
         }
     }
+
+    Origin.Main.module.service('FormDataService', Origin.Core.FormDataService);
 }

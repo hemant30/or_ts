@@ -1,3 +1,6 @@
+
+/// <reference path="../main.ts" />
+
 namespace Origin.Core {
 
     export interface IAppService {
@@ -28,4 +31,5 @@ namespace Origin.Core {
             return parseFloat((size / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
         };
     }
+    Origin.Main.module.service('AppService', Origin.Core.AppService);
 }

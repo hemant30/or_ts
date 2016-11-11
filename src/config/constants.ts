@@ -1,3 +1,5 @@
+/// <reference path="../main.ts" />
+
 namespace Origin.Config {
     export interface IConstant {
         surl: string;
@@ -54,4 +56,6 @@ namespace Origin.Config {
             IS_IMPLEMENTER: 'Implementer'
         }
     }
+
+    Origin.Main.module.constant('Constant', Origin.Config.OriConstant);
 }

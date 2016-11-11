@@ -1,6 +1,7 @@
 /// <reference path="./idname.model.ts" />
 /// <reference path="./user_permission.model.ts" />
 /// <reference path="./client.model.ts" />
+/// <reference path="../main.ts" />
 
 
 namespace Origin.Model {
@@ -127,4 +128,6 @@ namespace Origin.Model {
             return defer.promise;
         }
     }
+
+    Origin.Main.module.service('UserDataService', Origin.Model.UserDataService);
 }

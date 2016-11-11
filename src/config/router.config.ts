@@ -1,18 +1,13 @@
+/// <reference path="../main.ts" />
+
 /// <reference path="../app/app.component.tpl.ts" />
 /// <reference path="../models/attribute.model.ts" />
 /// <reference path="./constants.ts" />
+/// <reference path="../core/wijmo_setup.ts" />
 
 
 namespace Origin.Config {
 
-    interface IColumn {
-        name: string;
-        header?: string;
-        canHideColumn: boolean;
-        visible: boolean;
-        type?: number;
-        iscusomattributes?: boolean;
-    }
     export class RouteConfig {
         constructor(private $stateProvider: ng.ui.IStateProvider, private $urlRouterProvider: ng.ui.IUrlRouterProvider) {
             this.init();
@@ -23,6 +18,9 @@ namespace Origin.Config {
             this.$stateProvider.state('wp.home', this.wphomeState());
             this.$stateProvider.state('wp.workpapers', this.workpaperState());
             this.$stateProvider.state('wp.plugin', this.supportState())
+            this.$stateProvider.state('wp.batches', this.batchesState())
+            this.$stateProvider.state('wp.attachments', this.attachmentsState())
+            this.$stateProvider.state('wp.help', this.helpState())
             this.$urlRouterProvider.otherwise('/wp')
             // if (typeof LoneStar !== 'object') {
             //     this.env.isLoneStarRunning = false;
@@ -32,7 +30,7 @@ namespace Origin.Config {
         }
 
         private getColumnDefinitionsForWorkpaper(attributeDataService: Origin.Model.IAttributeDataService, $q: ng.IQService) {
-            let columns: Array<IColumn> = [{
+            let columns: Array<Origin.Core.Wijmo.IColumnDefinition> = [{
                 'name': 'checkbox',
                 'canHideColumn': false,
                 'visible': true
@@ -132,7 +130,7 @@ namespace Origin.Config {
                             customattributes: ['AttributeDataService', '$q', function (AttributeDataService: Origin.Model.IAttributeDataService, $q: ng.IQService) {
                                 let x =
                                     _self.getColumnDefinitionsForWorkpaper(AttributeDataService, $q);
-                                
+
                                 return x;
                             }]
                         }
@@ -168,7 +166,12 @@ namespace Origin.Config {
         private batchesState(): ng.ui.IState {
             return {
                 views: {
-
+                    '': {
+                        template: ''
+                    },
+                    mainView: {
+                        template: 'this is batch'
+                    }
                 }
             }
         }
@@ -178,13 +181,37 @@ namespace Origin.Config {
                 url: '/support',
                 views: {
                     '': {
-                        template: '<folder></folder>'
+                        template: ''
                     },
                     mainView: {
-                        template: '<folder></folder>'
+                        template: ''
                     }
                 }
             }
         }
+
+        private attachmentsState(): ng.ui.IState {
+            return {
+                views: {
+                    '': {
+                        template: ''
+                    },
+                    mainView: {
+                        template: 'this is attachment'
+                    }
+                }
+            }
+        }
+
+        private helpState() {
+            return {
+                url: '/webhelp/default.htm',
+                external: true
+            }
+        }
     }
+
+    Origin.Main.module.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
+        return new Origin.Config.RouteConfig($stateProvider, $urlRouterProvider);
+    }])
 }

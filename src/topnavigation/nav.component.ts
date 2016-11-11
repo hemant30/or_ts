@@ -1,4 +1,6 @@
 /// <reference path="../config/env.config.ts" />
+/// <reference path="../main.ts" />
+/// <reference path="./nav.component.tpl.ts" />
 
 namespace Origin.Nav {
     export class NavigationComponent {
@@ -35,7 +37,9 @@ namespace Origin.Nav {
 
             };
             this.controller = NavigationComponent;
-            this.template = Origin.Nav.navtemplate
+            this.template = Origin.Template.navtemplate
         }
     }
+
+    Origin.Main.module.component('nav', new Origin.Nav.Navigation())
 }

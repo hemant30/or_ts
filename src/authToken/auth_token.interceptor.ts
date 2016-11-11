@@ -1,3 +1,6 @@
+/// <reference path="../main.ts" />
+
+
 namespace Origin.Core {
     export class AuthTokenInterceptor {
         static $inject = ['$q', '$window', '$cookies', '$location'];
@@ -39,4 +42,6 @@ namespace Origin.Core {
             return this.$q.reject(response);
          }
     }
+
+    Origin.Main.module.service('AuthTokenInterceptor', Origin.Core.AuthTokenInterceptor);
 }

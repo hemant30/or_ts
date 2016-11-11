@@ -1,4 +1,4 @@
-namespace Origin.Nav { 
+namespace Origin.Template { 
     export var navtemplate: string = `
         <div class="">
             <div bento-nav-toolbar class="navbar-navbar navbar-default bento-toolbar global-subnav">

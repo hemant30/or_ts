@@ -1,3 +1,5 @@
+/// <reference path="../main.ts" />
+
 namespace Origin.Core { 
 
     export class PermissionDirective implements ng.IDirective { 
@@ -19,4 +21,6 @@ namespace Origin.Core {
              });
         }
     } 
+
+    Origin.Main.module.directive('hasPermission', ['AuthorizationService', (authorizationService) => new Origin.Core.PermissionDirective(authorizationService)]);
 }

@@ -1,3 +1,7 @@
+/// <reference path="../main.ts" />
+/// <reference path="../config/env.config.ts" />
+
+
 namespace Origin.Core { 
     export class OriginAnalytics { 
         static $inject = ['ENV', '$analytics'];
@@ -14,4 +18,6 @@ namespace Origin.Core {
             }
         }
     }
+
+    Origin.Main.module.service('OriginAnalytics', Origin.Core.OriginAnalytics);
 }

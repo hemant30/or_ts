@@ -2,6 +2,7 @@
 /// <reference path="../models/folder.model.ts" />
 /// <reference path="../core/authorization.service.ts" />
 /// <reference path="../config/constants.ts" />
+/// <reference path="../main.ts" />
 
 
 namespace Origin.Component {
@@ -11,11 +12,12 @@ namespace Origin.Component {
 
         canedit: boolean;
         candelete: boolean;
-        folderList: Folder[];
+        folderList;
         authorize;
         refreshtable: Function;
         canchangeeditdelete: boolean;
         showEditDelete: boolean;
+        fold
 
         constructor(private folderDataService: Origin.Model.IFolderDataService, private authorizationService: Origin.Core.IAuthorizationService, private $q: ng.IQService) {
             this.folderList = () => {
@@ -76,4 +78,6 @@ namespace Origin.Component {
             this.template = Origin.Template.FolderTemplate;
         }
     }
+
+    Origin.Main.module.component('folder', new Origin.Component.Folder());
 }

@@ -1,3 +1,6 @@
+/// <reference path="../main.ts" />
+
+
 namespace Origin.Config {
     export interface IEnv {
         isLoneStarRunning: boolean;
@@ -13,4 +16,6 @@ namespace Origin.Config {
         directurl: '',
         attrEndPoint: 'https://dev-origin-attributes.int.thomsonreuters.com/api/v1/'
     }
+
+    Origin.Main.module.constant('ENV', Origin.Config.ENV);
 }

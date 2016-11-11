@@ -1,4 +1,5 @@
 /// <reference path="../models/user.model.ts" />
+/// <reference path="../main.ts" />
 
 namespace Origin.Core {
     export interface IAuthorizationService {
@@ -67,4 +68,6 @@ namespace Origin.Core {
             return defer.promise;
         }
     }
+
+    Origin.Main.module.service('AuthorizationService', Origin.Core.AuthorizationService);
 }

@@ -3,16 +3,19 @@
 /// <reference path="../core/wijmo_setup.ts" />
 
 
+/// <reference path="./workpaper.component.tpl.ts" />
+/// <reference path="../core/wijmo_setup.ts" />
+
 namespace Origin.Component {
     export class WorkpaperController {
         static $inject = ['WorkpaperDataService'];
         authorize: any;
-        customattributes: Origin.Core.Wijmo.IColumnDefinition;
+        customattributes: Origin.Core.Wijmo.IColumnDefinition[];
         refreshtable;
         onsubscribe;
-        columnDefinitions: Origin.Core.Wijmo.IColumnDefinition;
+        columnDefinitions: Origin.Core.Wijmo.IColumnDefinition[];
         page: number;
-        wijmo: Origin.Core.WijmoSetup;
+        wijmo: Origin.Core.Wijmo.Setup;
         private filtertext;
 
         constructor(private workpaperDataService: Origin.Model.IWorkpaperDataService) {
@@ -20,7 +23,7 @@ namespace Origin.Component {
             this.columnDefinitions = this.customattributes;
             this.page = 1;
             this.wijmo = new Origin.Core.Wijmo.Setup(this.columnDefinitions)
-            this.filtertext = { text: '', pageloaded: false;}
+            this.filtertext = { text: '', pageloaded: false}
         }
 
         // $onInit() { 
@@ -36,7 +39,7 @@ namespace Origin.Component {
             else {
                 folderid = -1;
             }
-            this.workpaperDataService.getAll(folderid, null, !force).then(function (res: Workpaper[]) {
+            this.workpaperDataService.getAll(folderid, null, !force).then(function (res) {
                 _self.wijmo.setGridData(res);
                 _self.filtertext.pageloaded = true;
                 _self.wijmo.page = 1;
@@ -59,4 +62,6 @@ namespace Origin.Component {
             this.template = Origin.Template.WorkpaperTemplate;
         }
     }
+
+    Origin.Main.module.component('workpaper', new Origin.Component.Workpaper())
 }

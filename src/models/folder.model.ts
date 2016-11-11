@@ -2,6 +2,7 @@
 /// <reference path="../core/http.service.ts" />
 /// <reference path="./workpaper.model.ts" />
 
+/// <reference path="../main.ts" />
 
 namespace Origin.Model {
     export class Folder extends IdName {
@@ -99,4 +100,6 @@ namespace Origin.Model {
             return def.promise;
         }
     }
+
+    Origin.Main.module.service('FolderDataService', Origin.Model.FolderDataService);
 }

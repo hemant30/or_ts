@@ -3,6 +3,7 @@
 /// <reference path="../core/alert.service.ts" />
 /// <reference path="../core/formData.service.ts" />
 /// <reference path="../config/constants.ts" />
+/// <reference path="../main.ts" />
 
 namespace Origin.Core {
 
@@ -228,4 +229,6 @@ namespace Origin.Core {
         }
 
     }
+
+    Origin.Main.module.service('HttpService', Origin.Core.HttpService);
 }

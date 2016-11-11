@@ -1,4 +1,4 @@
-namespace Origin {
+namespace Origin.Template {
     export var apptemplate: string = `
         <div class="originContainer"> 
             <div ui-view="subNav"></div>

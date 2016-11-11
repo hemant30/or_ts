@@ -1,10 +1,13 @@
 namespace Origin.Core.Wijmo {
     export interface IColumnDefinition {
         name: string;
-        header: string;
+        header?: string;
         canHideColumn: boolean;
         visible: boolean;
+        type?: number;
+        iscusomattributes?: boolean;
     }
+
     export class Setup {
 
         defaultPageSize: number
@@ -20,6 +23,7 @@ namespace Origin.Core.Wijmo {
         sortfieldname: string;
         source;
         page: number;
+        pagesize: number;
 
 
         selectItems = [
@@ -40,6 +44,7 @@ namespace Origin.Core.Wijmo {
             this.isFilterActive = false;
             this.sortfieldname = 'lastmodified';
             this.page = this.defaultPage;
+            this.pagesize = this.defaultPageSize;
         }
 
         setupGridStyleAndFilter = (grid, thisobj) => {
@@ -105,6 +110,13 @@ namespace Origin.Core.Wijmo {
             this.collapseGrid();
         };
 
+        onSelectChanged = (size) => {
+            this.pagesize = size;
+            //analyticsService.trackEvent('changed', 'Pagination', 'Page Size : ' + size);
+            this.grid.collectionView.pagesize = size;
+            this.collapseGrid();
+        };
+
         toggleFilter = () => {
             this.isFilterActive = false;
             this.flexgridfilter.clear();
@@ -112,9 +124,17 @@ namespace Origin.Core.Wijmo {
             this.collapseGrid();
         };
 
-        toggleGroupPanel = ()=> {
+        toggleGroupPanel = () => {
             this.hideGroupPanel = !this.hideGroupPanel;
             this.grid.refresh();
+            this.collapseGrid();
+        };
+
+        toggleVisibility = (index) => {
+            this.columnDefinitions[index]['visible'] = !this.columnDefinitions[index]['visible'];
+        };
+
+        sortedcolumn = () => {
             this.collapseGrid();
         };
 
@@ -124,6 +144,7 @@ namespace Origin.Core.Wijmo {
             g.grid.collapseGroupsToLevel(0);
             // }, 0);
         };
+
 
 
     }

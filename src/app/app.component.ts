@@ -1,4 +1,10 @@
 /// <reference path="../config/env.config.ts" />
+/// <reference path="../core/alert.service.ts" />
+/// <reference path="../main.ts" />
+/// <reference path="./app.component.tpl.ts" />
+/// <reference path="../config/env.config.ts" />
+/// <reference path="../core/alert.service.ts" />
+
 
 
 namespace Origin {
@@ -28,7 +34,9 @@ namespace Origin {
 
             };
             this.controller = AppComponentController;
-            this.template = Origin.apptemplate;
+            this.template = Origin.Template.apptemplate;
         }
     }
+
+    Origin.Main.module.component('originapp', new Origin.App())
 }

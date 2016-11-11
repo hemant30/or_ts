@@ -82,6 +82,9 @@ module.exports = {
                 from: './node_modules/angular-translate/dist/angular-translate.min.js',
                 to: 'js'
             }, {
+                from: './node_modules/angulartics/dist/angulartics.min.js',
+                to: 'js'
+            }, {
                 from: './lib/wijmo/controls/',
                 to: 'js'
             }, {

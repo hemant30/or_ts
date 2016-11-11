@@ -3,6 +3,7 @@
 /// <reference path="./folder.model.ts" />
 /// <reference path="./fileversion.model.ts" />
 /// <reference path="./attachment.model.ts" />
+/// <reference path="../main.ts" />
 
 
 namespace Origin.Model {
@@ -154,4 +155,6 @@ namespace Origin.Model {
         }
 
     }
+
+    Origin.Main.module.service('WorkpaperDataService', Origin.Model.WorkpaperDataService);
 }

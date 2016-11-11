@@ -22,7 +22,8 @@
     "angular-animate": "1.5.8",
     "angular-ui-router": "0.3.2",
     "angular-sanitize": "1.5.8",
-    "angular-touch": "1.5.8"
+    "angular-touch": "1.5.8",
+    "angulartics": "1.0.3"
   },
 
   "devDependencies": {

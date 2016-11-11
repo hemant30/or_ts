@@ -1,3 +1,5 @@
+
+
 namespace Origin.Core {
     ActualDate.$inject = ['$filter'];
     export function ActualDate($filter) { 
@@ -12,4 +14,6 @@ namespace Origin.Core {
 
 
     }
+
+    Origin.Main.module.filter('actualDate', Origin.Core.ActualDate);
 }

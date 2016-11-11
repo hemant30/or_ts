@@ -1,4 +1,5 @@
 /// <reference path="./home.component.tpl.ts" />
+/// <reference path="../main.ts" />
 
 
 namespace Origin.Home {
@@ -30,4 +31,6 @@ namespace Origin.Home {
             this.template = Origin.Home.hometemplate
         }
     }
+
+    Origin.Main.module.component('home', new Home());
 }

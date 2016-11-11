@@ -1,3 +1,5 @@
+/// <reference path="../main.ts" />
+
 namespace Origin.Core {
     export interface IHttpMicroService {
         get(url: string, parameters?: any, hideBusyLoader?: boolean)
@@ -71,4 +73,6 @@ namespace Origin.Core {
         }
 
     }
+
+    Origin.Main.module.service('HttpMicroService', Origin.Core.HttpMicroService);
 }

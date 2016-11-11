@@ -1,4 +1,5 @@
 /// <reference path="./idname.model.ts" />
+/// <reference path="../main.ts" />
 
 namespace Origin.Model {
     export class Attribute extends IdName {
@@ -71,4 +72,6 @@ namespace Origin.Model {
             return defer.promise;
         }
     }
+
+    Origin.Main.module.service('AttributeDataService', Origin.Model.AttributeDataService);
 }

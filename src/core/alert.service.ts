@@ -1,3 +1,5 @@
+/// <reference path="../main.ts" />
+
 namespace Origin.Core {
     export interface IAlertService { 
         originAlerts: any;
@@ -52,4 +54,6 @@ namespace Origin.Core {
             }
         }
     }
+
+    Origin.Main.module.service('AlertService', Origin.Core.AlertService);
 }

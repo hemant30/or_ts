@@ -1,29 +1,31 @@
-namespace Origin.Component { 
-    export class WorkpaperContainerController { 
+/// <reference path="./workpaper_container.component.tpl.ts" />
+
+namespace Origin.Component {
+    export class WorkpaperContainerController {
         authorize: boolean;
         customattributes;
         refreshtable: string;
         callbacks: Function[];
-        
 
-        constructor() { 
+
+        constructor() {
             this.callbacks = [];
-            
+
         }
 
-        private publish(force? : boolean) { 
-            angular.forEach(this.callbacks, function (c: Function) { 
+        private publish(force?: boolean) {
+            angular.forEach(this.callbacks, function (c: Function) {
                 c(force);
             })
         }
 
-        subscribe(callback: Function) { 
+        subscribe(callback: Function) {
             if (callback) {
                 this.callbacks.push(callback);
-            }    
+            }
         }
 
-        refreshTable(force? : boolean) { 
+        refreshTable(force?: boolean) {
             this.publish(force);
         }
     }
@@ -42,4 +44,5 @@ namespace Origin.Component {
             this.template = Origin.Template.WorkpaperContainerTemplate;
         }
     }
+    Origin.Main.module.component('workpaperContainer', new Origin.Component.WorkpaperContainer())
 }
