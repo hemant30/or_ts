@@ -41,7 +41,7 @@ module.exports = {
                 to: 'css/bento-platform-theme.min.css'
             }, {
                 from: './bower_components/bento-modern/flexgrid/platform-theme.min.css',
-                to: 'css'
+                to: 'css/flexgrid-platform-theme.min.css'
             }, {
                 from: './bower_components/jquery/dist/jquery.min.js',
                 to: 'js'

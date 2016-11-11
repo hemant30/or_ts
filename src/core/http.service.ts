@@ -152,6 +152,7 @@ namespace Origin.Core {
         };
 
         post(url: string, data: any, hideBusyLoader?: boolean, rejectError?: boolean, useZuul?: boolean) {
+            let _self = this;
             if (!hideBusyLoader) {
                 this.incmntClockCount();
             }
@@ -159,26 +160,26 @@ namespace Origin.Core {
             let deferred = this.$q.defer();
             this.getServiceUrl().then(function (res) {
                 if (useZuul) {
-                    url = this.directurl + url;
+                    url = _self.directurl + url;
                 } else {
                     url = res + url;
                 }
 
-                this.$http({
+                _self.$http({
                     method: 'POST',
                     url: url,
                     data: data
                 }).then(function (response) {
                     if (!hideBusyLoader) {
-                        this.decmntClockCount();
+                        _self.decmntClockCount();
                     }
                     deferred.resolve(response.data);
                 }, function (response) {
                     if (!hideBusyLoader) {
-                        this.decmntClockCount();
+                        _self.decmntClockCount();
                     }
                     if (!rejectError) {
-                        this.handleErrors(response);
+                        _self.handleErrors(response);
                     } else {
                         deferred.reject(response);
                     }

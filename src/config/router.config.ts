@@ -81,10 +81,10 @@ namespace Origin.Config {
                 }
             };
 
-            attributeDataService.get().then(function (res: any) { 
+            attributeDataService.get().then(function (res: any) {
                 res.map(addtocolumns);
                 defer.resolve(columns);
-            }, function (reason: any) { })            
+            }, function (reason: any) { })
 
             return defer.promise;
         };
@@ -123,7 +123,7 @@ namespace Origin.Config {
                 url: '/workpapers',
                 views: {
                     'mainView@wp': {
-                        template: '<workpaper authorize="$resolve.authorize" customattributes="$resolve.customattributes"></workpaper>',
+                        template: '<workpaper-container authorize="$resolve.authorize" customattributes="$resolve.customattributes"></workpaer-container>',
                         resolve: {
                             authorize: ['AuthorizationService', function (authorizationService: Origin.Core.IAuthorizationService) {
                                 let x = authorizationService.hasPermission(OriConstant.permissions.CAN_SEE_ACTIVE_WORKPAPER);
@@ -132,18 +132,34 @@ namespace Origin.Config {
                             customattributes: ['AttributeDataService', '$q', function (AttributeDataService: Origin.Model.IAttributeDataService, $q: ng.IQService) {
                                 let x =
                                     _self.getColumnDefinitionsForWorkpaper(AttributeDataService, $q);
+                                
                                 return x;
                             }]
                         }
-                    },
-                    'folderview@wp.workpapers': {
-                        template: '<folder test="$resolve.test"></folder>',
-                        resolve: {
-                            test: function () { 
-                                return true;
-                            }
-                        }
                     }
+                    // 'mainView@wp': {
+                    //     template: '<workpaper authorize="$resolve.authorize" customattributes="$resolve.customattributes"></workpaper>',
+                    //     resolve: {
+                    //         authorize: ['AuthorizationService', function (authorizationService: Origin.Core.IAuthorizationService) {
+                    //             let x = authorizationService.hasPermission(OriConstant.permissions.CAN_SEE_ACTIVE_WORKPAPER);
+                    //             return x;
+                    //         }],
+                    //         customattributes: ['AttributeDataService', '$q', function (AttributeDataService: Origin.Model.IAttributeDataService, $q: ng.IQService) {
+                    //             let x =
+                    //                 _self.getColumnDefinitionsForWorkpaper(AttributeDataService, $q);
+                    //             return x;
+                    //         }]
+                    //     }
+                    // },
+                    // 'folderview@wp.workpapers': {
+                    //     template: '<folder authorize="$resolve.authorize"></folder>',
+                    //     resolve: {
+                    //         authorize: ['AuthorizationService', function (authorizationService: Origin.Core.IAuthorizationService) {
+                    //             let x = authorizationService.hasPermission(OriConstant.permissions.CAN_SEE_ACTIVE_WORKPAPER);
+                    //             return x;
+                    //         }]
+                    //     }
+                    // }
                 }
             }
 
@@ -157,7 +173,7 @@ namespace Origin.Config {
             }
         }
 
-        private supportState(): ng.ui.IState { 
+        private supportState(): ng.ui.IState {
             return {
                 url: '/support',
                 views: {
@@ -165,9 +181,9 @@ namespace Origin.Config {
                         template: '<folder></folder>'
                     },
                     mainView: {
-                        template : '<folder></folder>'
+                        template: '<folder></folder>'
                     }
-                }                
+                }
             }
         }
     }

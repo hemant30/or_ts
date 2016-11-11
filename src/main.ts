@@ -24,7 +24,8 @@ namespace Origin {
                     'pascalprecht.translate',
                     'fef',
                     'bento.modern',
-                    'ngCookies'
+                    'ngCookies',
+                    'wj'
                 ]);
 
             this.module
@@ -45,8 +46,10 @@ namespace Origin {
             this._module.component('originapp', new Origin.App())
                 .component('home', new Origin.Home.Home())
                 .component('nav', new Origin.Nav.Navigation())
+                .component('workpaperContainer', new Origin.Component.WorkpaperContainer())
                 .component('workpaper', new Origin.Component.Workpaper())
                 .component('folder', new Origin.Component.Folder())
+                .component('folderItem', new Origin.Component.FolderItem())
                 .service('AlertService', Origin.Core.AlertService)
                 .service('OriginAnalytics', Origin.Core.OriginAnalytics)
                 .service('AppService', Origin.Core.AppService)
@@ -59,6 +62,9 @@ namespace Origin {
                 .service('DemService', Origin.Core.OriginDem)
                 .service('UserDataService', Origin.Model.UserDataService)
                 .service('AttributeDataService', Origin.Model.AttributeDataService)
+                .service('FolderDataService', Origin.Model.FolderDataService)
+                .service('WorkpaperDataService', Origin.Model.WorkpaperDataService)
+                .filter('actualDate', Origin.Core.ActualDate)
                 .directive('hasPermission', ['AuthorizationService', (authorizationService) => new Origin.Core.PermissionDirective(authorizationService)])
 
             return this._module;
