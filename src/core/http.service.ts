@@ -9,7 +9,7 @@ namespace Origin.Core {
 
     export interface IHttpService {
         get(url: string, parameters?: any, hideBusyLoader?: boolean)
-        post(url: string, data: any, hideBusyLoader?: boolean, rejectError?: boolean, useZuul?: boolean);
+        post(url: string, data?: any, hideBusyLoader?: boolean, rejectError?: boolean, useZuul?: boolean);
         put();
         delete();
         DownloadFile(url: string);
@@ -152,7 +152,7 @@ namespace Origin.Core {
             return deferred.promise;
         };
 
-        post(url: string, data: any, hideBusyLoader?: boolean, rejectError?: boolean, useZuul?: boolean) {
+        post(url: string, data?: any, hideBusyLoader?: boolean, rejectError?: boolean, useZuul?: boolean) {
             let _self = this;
             if (!hideBusyLoader) {
                 this.incmntClockCount();

@@ -19,6 +19,9 @@ namespace Origin.Config {
             this.$stateProvider.state('wp.workpapers', this.workpaperState());
             this.$stateProvider.state('wp.plugin', this.supportState())
             this.$stateProvider.state('wp.batches', this.batchesState())
+            this.$stateProvider.state('wp.batches.list', this.batchesListState())
+            this.$stateProvider.state('wp.batches.queue', this.batchQueueState())
+            this.$stateProvider.state('wp.batches.history', this.batchHistoryState())
             this.$stateProvider.state('wp.attachments', this.attachmentsState())
             this.$stateProvider.state('wp.help', this.helpState())
             this.$urlRouterProvider.otherwise('/wp')
@@ -163,14 +166,70 @@ namespace Origin.Config {
 
         }
 
+        private batchHistoryState(): ng.ui.IState { 
+            return {
+                url: '/history',
+                views: {
+                    'batchesview@wp.batches': {
+                        template : '<batch-history></batch-history>'
+                    }
+                }
+            }
+        }
+
+        private batchQueueState(): ng.ui.IState { 
+            return {
+                url: '/queue',
+                views: {
+                    "batchesview@wp.batches": {
+                        template: '<batch-queue></batch-queue>'
+                    }
+                }
+            }
+        }
+
+        private batchesListState(): ng.ui.IState {
+            return {
+                url: '/list',
+                views: {
+                    "batchesview@wp.batches": {
+                        template: '<batch-list></batch-list>',
+                        resolve: {
+                            isAuthorize: ['AuthorizationService',
+                                function (authorizationservice) {
+                                    return authorizationservice.hasPermission(OriConstant.permissions.CAN_SEE_BATCHES);
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+
         private batchesState(): ng.ui.IState {
             return {
+                url: '/batches',
                 views: {
-                    '': {
-                        template: ''
-                    },
+
                     mainView: {
-                        template: 'this is batch'
+                        template: '<batch-container isAuthorize="$reolve.isAuthorize"></batch-container>',
+                        resolve: {
+                            isAuthorize: ['AuthorizationService',
+                                function (authorizationservice) {
+                                    return authorizationservice.hasPermission(OriConstant.permissions.CAN_SEE_BATCHES);
+                                }
+                            ]
+                        }
+                    },
+                    "batchesview@wp.batches": {
+                        template: '<batch-list></batch-list>',
+                        resolve: {
+                            isAuthorize: ['AuthorizationService',
+                                function (authorizationservice) {
+                                    return authorizationservice.hasPermission(OriConstant.permissions.CAN_SEE_BATCHES);
+                                }
+                            ]
+                        }
                     }
                 }
             }

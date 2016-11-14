@@ -7,6 +7,12 @@
 /// <reference path="./home/home.component.ts" />
 /// <reference path="./topnavigation/nav.component.ts" />
 /// <reference path="./workpaper/workpaper.component.ts" />
+
+/// <reference path="./batches/batches_container.component.ts" />
+/// <reference path="./batches/batchlist.component.ts" />
+/// <reference path="./batches/batchqueue.component.ts" />
+/// <reference path="./batches/batchhistory.component.ts" />
+
 /// <reference path="./workpaper/folder.component.ts" />
 /// <reference path="./workpaper/workpaper_container.component.ts" />
 /// <reference path="./core/date.filter.ts" />
@@ -25,6 +31,7 @@
 /// <reference path="./core/http.service.ts" />
 /// <reference path="./models/user.model.ts" />
 /// <reference path="./models/attribute.model.ts" />
+/// <reference path="./models/batch.model.ts" />
 
 /// <reference path="./core/authorization.service.ts" />
 
