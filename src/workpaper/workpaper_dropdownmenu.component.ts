@@ -31,11 +31,12 @@ namespace Origin.Component {
         }
 
         private isSelfCheckedOut(): ng.IPromise<{}> {
+            let _self = this;
             var def = this.$q.defer();
             if (this.workpaper.ischeckedout) {
                 this.userDataService.GetCurrentUser().then(function (res: Model.User) {
                     var user = res;
-                    if (this.workpaper.checkedoutby === user.loginname) {
+                    if (_self.workpaper.checkedoutby === user.loginname) {
                         def.resolve(true);
                     } else {
                         def.resolve(false);
@@ -75,7 +76,7 @@ namespace Origin.Component {
 
         overrideCheckout = (workpaper: Model.Workpaper) => {
             let _self = this;
-            workpaper.uncheckout().then(function (res) {
+            this.workpaperDataService.uncheckout(workpaper).then(function (res) {
                 _self.update({ a: res });
                 _self.analyticsService.trackEvent('select', 'Access Menu', 'Override Checkout');
             });
@@ -83,7 +84,7 @@ namespace Origin.Component {
 
         unlockWorkpaper = (workpaper) => {
             let _self = this;
-            workpaper.unlock().then(function (res) {
+            this.workpaperDataService.unlock(workpaper).then(function (res) {
                 _self.update({ a: res });
             }, function (exmsg) {
                 _self.alertService.addAlert(Core.AlertType.danger, exmsg);

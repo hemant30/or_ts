@@ -97,6 +97,7 @@ namespace Origin.Model {
         checkout(workpaper: Workpaper);
         downloadWorkpaperReadonly(workpaper: Workpaper);
         lock(workpaper: Workpaper);
+        unlocl(workpaper: Workpaper);
         uncheckout(workpaper: Model.Workpaper);
     }
 
@@ -231,6 +232,19 @@ namespace Origin.Model {
             this.httpMicroService.post(this.env.cicoEndPoint + 'cico/' + workpaper.id + '/uncheckoutWorkpaper', null)
                 .then(function (res) {
                     def.resolve(Workpaper.FromJson(res));
+                });
+            return def.promise;
+        }
+
+        unlock = (workpaper: Model.Workpaper) => {
+            let def = this.$q.defer();
+            this.httpMicroService.post(this.env.cicoEndPoint + 'cico/' + workpaper.id + '/unlockWorkpaper', null)
+                .then(function (res) {
+                    if (res.succeeded) {
+                        def.resolve(Workpaper.FromJson(res));
+                    } else {
+                        def.reject(res.exceptionmessage);
+                    }
                 });
             return def.promise;
         }
