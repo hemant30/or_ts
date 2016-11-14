@@ -60,10 +60,10 @@ namespace Origin.Core {
             }
         }
 
-        private handleErrors = (response: any) => { 
+        private handleErrors = (response: any) => {
 
-        }        
-        
+        }
+
         private incmntClockCount(): void {
             let showBusyLoader = () => {
                 if (this.clockCount <= 0) {
@@ -207,21 +207,22 @@ namespace Origin.Core {
             return deferred.promise;
         };
 
-        DownloadFile(url: string) {
+        DownloadFile = (url: string) => {
+            let _self = this;
             this.getServiceUrl().then(function (res) {
-                var instance = this.originAppService.getInstanceId();
-                this.formDataService.getToken().then(function (response) {
+                var instance = _self.originAppService.getOtpInstanceid();
+                _self.formDataService.getTokenAndAccountId().then(function (response: any) {
                     url = res + url + '?UDSLongToken=' + response.udsLongToken;
                     if (instance) {
                         url = url + '&instance=' + instance;
                     }
-                    if (this.env.isLoneStarRunning) {
+                    if (_self.env.isLoneStarRunning) {
                         url = url + '&LoneStarAccountId=' + response.accountid + '&LoneStarProductFirmId=' + response.firmid;
                         if (response.cmid) {
                             url = url + '&LonestarCmId=' + response.cmid;
                         }
                     }
-                    this.$window.location = url;
+                    _self.$window.location = url;
                 }, function (response) {
 
                 });

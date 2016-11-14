@@ -8,13 +8,15 @@ namespace Origin.Config {
         zuulEndPoint: string;
         directurl: string;
         attrEndPoint: string;
+        cicoEndPoint: string;
     }
     export var ENV: IEnv = {
         isLoneStarRunning: false,
         apiEndPoint: 'https://dev-origin-uiservices.int.thomsonreuters.com/api/v1/',
-        zuulEndPoint: '/zuul/dev2/workpaper-uiservices/api/v1/',
+        zuulEndPoint: 'https://dev-origin-uiservices.int.thomsonreuters.com/api/v1/',
         directurl: '',
-        attrEndPoint: 'https://dev-origin-attributes.int.thomsonreuters.com/api/v1/'
+        attrEndPoint: 'https://dev-origin-attributes.int.thomsonreuters.com/api/v1/',
+        cicoEndPoint: "https://dev-origin-cico.int.thomsonreuters.com/api/v1/"
     }
 
     Origin.Main.module.constant('ENV', Origin.Config.ENV);

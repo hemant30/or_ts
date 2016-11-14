@@ -2,7 +2,8 @@
 
 namespace Origin.Core {
     export interface IHttpMicroService {
-        get(url: string, parameters?: any, hideBusyLoader?: boolean)
+        get(url: string, parameters?: any, hideBusyLoader?: boolean);
+        post(url: string, data?: any, hideBusyLoader?: boolean, rejectError?: boolean);
     }
     export class HttpMicroService implements IHttpMicroService {
         static $inject = ['$q', '$http', 'ENV'];
@@ -46,7 +47,7 @@ namespace Origin.Core {
             }
         }
 
-        private handleErrors = (response: any) => { 
+        private handleErrors = (response: any) => {
 
         }
 
@@ -70,7 +71,37 @@ namespace Origin.Core {
                 deferred.reject(response);
             });
             return deferred.promise;
-        }
+        };
+
+        post(url: string, data?: any, hideBusyLoader?: boolean, rejectError?: boolean) {
+            if (!hideBusyLoader) {
+                this.incmntClockCount();
+            }
+
+            let _self = this;
+            let deferred = this.$q.defer();
+
+            _self.$http({
+                method: 'POST',
+                url: url,
+                data: data
+            }).then(function (response) {
+                if (!hideBusyLoader) {
+                    _self.decmntClockCount();
+                }
+                deferred.resolve(response.data);
+            }, function (response) {
+                if (!hideBusyLoader) {
+                    _self.decmntClockCount();
+                }
+                if (!rejectError) {
+                    _self.handleErrors(response);
+                } else {
+                    deferred.reject(response);
+                }
+            });
+            return deferred.promise;
+        };
 
     }
 

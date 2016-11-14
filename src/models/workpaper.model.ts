@@ -21,11 +21,11 @@ namespace Origin.Model {
         ischeckedout: boolean = false;
         lockedby: string;
         checkedoutby: string;
-        attributes :Attribute [];
+        attributes: Attribute[];
         isdeleted: boolean = false;
         hascapturedversions: boolean = false;
-        fileversions :FileVersion [];
-        attachments : Attachment[];
+        fileversions: FileVersion[];
+        attachments: Attachment[];
         isplatform: boolean;
 
         constructor(private type: WorkpaperType) {
@@ -94,12 +94,44 @@ namespace Origin.Model {
     export interface IWorkpaperDataService {
         get(workpaperid: number): ng.IPromise<Workpaper>;
         getAll(folderid: number, instanceid: string, usestaledata: boolean): ng.IPromise<Workpaper[]>;
+        checkout(workpaper: Workpaper);
+        downloadWorkpaperReadonly(workpaper: Workpaper);
+        lock(workpaper: Workpaper);
+        uncheckout(workpaper: Model.Workpaper);
     }
 
     export class WorkpaperDataService implements IWorkpaperDataService {
-        static $inject = ['$q', 'HttpService'];
+        static $inject = ['$q', 'HttpService', 'AlertService', 'HttpMicroService', 'ENV'];
 
-        constructor(private $q: ng.IQService, private httpService: Origin.Core.IHttpService) { };
+        constructor(private $q: ng.IQService, private httpService: Origin.Core.IHttpService, private alertService: Origin.Core.IAlertService, private httpMicroService: Origin.Core.IHttpMicroService, private env: Origin.Config.IEnv) { };
+
+        private checkoutWorkpaper = (id: number): ng.IPromise<{}> => {
+            let def = this.$q.defer();
+            let _self = this;
+            this.httpService.get('workpapers/' + id).then(function (res) {
+                if (!res.success) {
+                    _self.alertService.addAlert(Core.AlertType.danger, res.message);
+                    def.reject(res);
+                } else {
+                    var wp = Workpaper.FromJson(res.data);
+                    if (wp.ischeckedout || wp.islocked) {
+                        _self.downloadWorkpaperReadonly(wp).then(function () {
+                            def.resolve(res);
+                        });
+
+                    } else {
+                        _self.httpMicroService.post(_self.env.cicoEndPoint + 'cico/' + id + '/checkoutWorkpaper', null, null, true)
+                            .then(function (res) {
+                                _self.httpService.DownloadFile('workpapers/' + id + '/download');
+                                def.resolve(res);
+                            }, function (res) {
+                                def.reject(res);
+                            });
+                    }
+                }
+            });
+            return def.promise;
+        };
 
         get(workpaperid: number): ng.IPromise<Workpaper> {
             let def = this.$q.defer();
@@ -121,7 +153,7 @@ namespace Origin.Model {
             let def = this.$q.defer();
             let workpapersByFolder = (folderid: number): Workpaper[] => {
                 if (folderid > -1) {
-                    return Workpaper.List.filter(function (v) { 
+                    return Workpaper.List.filter(function (v) {
                         return v.folderid === folderid;
                     })
                 } else {
@@ -154,6 +186,54 @@ namespace Origin.Model {
             return def.promise;
         }
 
+        checkout = (workpaper: Workpaper) => {
+            let def = this.$q.defer();
+            this.checkoutWorkpaper(workpaper.id).then(function (res) {
+                def.resolve(res);
+            }, function (res) {
+                def.reject(res);
+            });
+            return def.promise;
+        }
+
+        downloadWorkpaperReadonly = (workpaper: Workpaper) => {
+            let _self = this;
+            let url = 'workpapers/' + workpaper.id + '/downloadReadOnly';
+            let def = this.$q.defer();
+            this.httpService.get('workpapers/' + workpaper.id).then(function (res) {
+                if (!res.success) {
+                    _self.alertService.addAlert(Core.AlertType.danger, res.message);
+                    def.resolve();
+                } else {
+                    _self.httpService.DownloadFile(url);
+                    def.resolve();
+                }
+            });
+            return def.promise;
+        }
+
+        lock = (workpaper: Model.Workpaper) => {
+            let _self = this;
+            let def = this.$q.defer();
+            this.httpMicroService.post(this.env.cicoEndPoint + 'cico/' + workpaper.id + '/lockWorkpaper', null)
+                .then(function (res) {
+                    if (res.succeeded === true) {
+                        def.resolve(Workpaper.FromJson(res));
+                    } else {
+                        _self.alertService.addAlert(Core.AlertType.danger, res.exceptionmessage);
+                    }
+                });
+            return def.promise;
+        }
+
+        uncheckout = (workpaper: Model.Workpaper) => {
+            let def = this.$q.defer();
+            this.httpMicroService.post(this.env.cicoEndPoint + 'cico/' + workpaper.id + '/uncheckoutWorkpaper', null)
+                .then(function (res) {
+                    def.resolve(Workpaper.FromJson(res));
+                });
+            return def.promise;
+        }
     }
 
     Origin.Main.module.service('WorkpaperDataService', Origin.Model.WorkpaperDataService);

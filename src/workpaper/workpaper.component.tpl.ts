@@ -148,7 +148,8 @@ namespace Origin.Template {
                                 <wj-flex-grid-column header="{{'access' | translate}}" allow-sorting=false allow-dragging=false binding="" min-width="60"
                                     width="75" align="left" is-read-only="true">
                                     <wj-flex-grid-cell-template cell-type="Cell">
-                                        <div wpdropdownmenu wp="$item" type="{{'workpaper'}}" update="$ctrl.updateWorkpaperRow" style=""></div>
+                                        <wpdropdownmenu workpaper="$item" update="$ctrl.updateWorkpaperRow(a)"></wpdropdownmenu>
+                                        <!--<div wpdropdownmenu wp="$item" type="{{'workpaper'}}" update="$ctrl.updateWorkpaperRow" style=""></div>-->
                                     </wj-flex-grid-cell-template>
                                 </wj-flex-grid-column>
                                 <wj-flex-grid-column header="{{ 'WpGridHeaderWpName' | translate}}" binding="name" min-width="200" width="300" align="left"
