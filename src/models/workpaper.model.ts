@@ -97,7 +97,7 @@ namespace Origin.Model {
         checkout(workpaper: Workpaper);
         downloadWorkpaperReadonly(workpaper: Workpaper);
         lock(workpaper: Workpaper);
-        unlocl(workpaper: Workpaper);
+        unlock(workpaper: Workpaper);
         uncheckout(workpaper: Model.Workpaper);
     }
 
