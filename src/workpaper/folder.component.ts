@@ -6,6 +6,7 @@
 
 
 namespace Origin.Component {
+    
     export class FolderController {
 
         static $inject = ['FolderDataService', 'AuthorizationService', '$q']

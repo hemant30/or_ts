@@ -14,6 +14,7 @@
 /// <reference path="./batches/batchqueue.component.ts" />
 /// <reference path="./batches/batchhistory.component.ts" />
 
+/// <reference path="./workpaper/workpaper_modal.component.ts" />
 /// <reference path="./workpaper/workpaper_container.component.ts" />
 /// <reference path="./workpaper/workpaper.component.ts" />
 /// <reference path="./workpaper/folder.component.ts" />
@@ -26,6 +27,7 @@
 /// <reference path="./core/wijmo_culture.ts" />
 
 /// <reference path="./core/global.functions.ts" />
+/// <reference path="./core/modalState.provider.ts" />
 
 /// <reference path="./core/permission.directive.ts" />
 

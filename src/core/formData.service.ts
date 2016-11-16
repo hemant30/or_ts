@@ -7,8 +7,8 @@ namespace Origin.Core {
     };
 
     export class FormDataService implements IFormDataService {
-        static $inject = ['$http', '$q', 'Constant', 'ENV', 'AppService', '$cookies', '$injector'];
-        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private constant: Origin.IConstant, private env: Origin.Config.IEnv, private originAppService: Origin.Core.IAppService, private $cookies: ng.cookies.ICookiesService, private $injector: ng.auto.IInjectorService) {
+        static $inject = ['$http', '$q', 'ENV', 'AppService', '$cookies', '$injector'];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private env: Origin.Config.IEnv, private originAppService: Origin.Core.IAppService, private $cookies: ng.cookies.ICookiesService, private $injector: ng.auto.IInjectorService) {
 
         }
 

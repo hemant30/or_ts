@@ -21,8 +21,6 @@ namespace Origin {
                     'wj'
                 ]);
             return this._module;
-
-
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace Origin.Core.Wijmo {
+namespace Origin.Core.Wijmo { 
     export interface IColumnDefinition {
         name: string;
         header?: string;

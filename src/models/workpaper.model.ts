@@ -69,6 +69,11 @@ namespace Origin.Model {
         status: string;
         starttime: Date;
         endtime: Date;
+        createNewFolder: boolean;
+        selectedFolder: number;
+        validfile: boolean;
+        workpaperfileobj;
+        file;
 
         constructor(type: WorkpaperType) {
             super(type);

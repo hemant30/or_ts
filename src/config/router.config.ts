@@ -1,15 +1,16 @@
 /// <reference path="../main.ts" />
-
+/// <reference path="../core/modalState.provider.ts" />
 /// <reference path="../app/app.component.tpl.ts" />
 /// <reference path="../models/attribute.model.ts" />
 /// <reference path="./constants.ts" />
 /// <reference path="../core/wijmo_setup.ts" />
+/// <reference path="../workpaper/workpaper_modal.component.ts" />
 
 
 namespace Origin.Config {
 
     export class RouteConfig {
-        constructor(private $stateProvider: ng.ui.IStateProvider, private $urlRouterProvider: ng.ui.IUrlRouterProvider) {
+        constructor(private $stateProvider: ng.ui.IStateProvider, private $urlRouterProvider: ng.ui.IUrlRouterProvider, private modalStateProvider: Core.IModalState) {
             this.init();
         }
 
@@ -17,6 +18,7 @@ namespace Origin.Config {
             this.$stateProvider.state('wp', this.defaultState());
             this.$stateProvider.state('wp.home', this.wphomeState());
             this.$stateProvider.state('wp.workpapers', this.workpaperState());
+            this.modalStateProvider.state('wp.workpapers.create', this.wpCreateModalState())
             this.$stateProvider.state('wp.plugin', this.supportState())
             this.$stateProvider.state('wp.batches', this.batchesState())
             this.$stateProvider.state('wp.batches.list', this.batchesListState())
@@ -118,6 +120,21 @@ namespace Origin.Config {
             }
         }
 
+        private wpCreateModalState() {
+            return {
+                url: '/create',
+                component: 'workpaperModal',
+                // template: '<workpaper-modal></workpaper-modal>',
+                backdrop: 'static',
+                keyboard: true,
+                resolve: {
+                    'workpaper': function () {
+                        return new Model.Workpaper(Model.WorkpaperType.StandaloneWorkpaper)
+                    }
+                }
+            }
+        }
+
         private workpaperState = (): ng.ui.IState => {
             let _self = this;
             return {
@@ -166,18 +183,18 @@ namespace Origin.Config {
 
         }
 
-        private batchHistoryState(): ng.ui.IState { 
+        private batchHistoryState(): ng.ui.IState {
             return {
                 url: '/history',
                 views: {
                     'batchesview@wp.batches': {
-                        template : '<batch-history></batch-history>'
+                        template: '<batch-history></batch-history>'
                     }
                 }
             }
         }
 
-        private batchQueueState(): ng.ui.IState { 
+        private batchQueueState(): ng.ui.IState {
             return {
                 url: '/queue',
                 views: {
@@ -270,7 +287,7 @@ namespace Origin.Config {
         }
     }
 
-    Origin.Main.module.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
-        return new Origin.Config.RouteConfig($stateProvider, $urlRouterProvider);
+    Origin.Main.module.config(['$stateProvider', '$urlRouterProvider', 'modalStateProvider', ($stateProvider, $urlRouterProvider, modalStateProvider) => {
+        return new Origin.Config.RouteConfig($stateProvider, $urlRouterProvider, modalStateProvider);
     }])
 }
